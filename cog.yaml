@@ -1,0 +1,59 @@
+build:
+  gpu: true
+  python_version: "3.10"
+  cuda: "11.8"
+  system_packages:
+    - "build-essential"
+    - "libegl1-mesa-dev"
+    - "libgl1-mesa-dev"
+    - "libgles2-mesa-dev"
+    - "libglib2.0-0"
+    - "libsm6"
+    - "libxext6"
+    - "libxrender1"
+    - "python3.10-dev"
+    - "zip"
+  python_packages:
+    - "--extra-index-url https://download.pytorch.org/whl/cu118"
+    - "torch==2.0.1+cu118"
+    - "lightning==2.0.0"
+    - "omegaconf==2.3.0"
+    - "jaxtyping==0.2.23"
+    - "typeguard==2.13.3"
+    - "diffusers==0.22.1"
+    - "transformers==4.35.0"
+    - "accelerate==0.24.1"
+    - "opencv-python==4.8.1.78"
+    - "imageio==2.32.0"
+    - "imageio-ffmpeg==0.4.9"
+    - "libigl==2.4.1"
+    - "xatlas==0.0.8"
+    - "trimesh==4.0.2"
+    - "networkx==3.2.1"
+    - "pysdf==0.1.9"
+    - "PyMCubes==0.1.4"
+    - "torchmetrics==1.2.0"
+    - "wandb==0.15.12"
+    - "tensorboard==2.15.1"
+    - "matplotlib==3.8.1"
+    - "mediapipe==0.10.7"
+    - "open-clip-torch==2.7.0"
+    - "controlnet-aux"
+    - "xformers"
+    - "rembg[gpu,cli]"
+    - "trimesh==4.0.2"
+  run:
+    - curl -o /usr/local/bin/pget -L "https://github.com/replicate/pget/releases/download/v0.0.1/pget" 
+    - chmod +x /usr/local/bin/pget
+    - 'export TORCH_CUDA_ARCH_LIST="8.6"
+      && export TCNN_CUDA_ARCHITECTURES="86"
+      && export CUDA_HOME=/usr/local/cuda
+      && export PATH=${CUDA_HOME}/bin:/home/${USER_NAME}/.local/bin:${PATH}
+      && export LD_LIBRARY_PATH=${CUDA_HOME}/lib64:${LD_LIBRARY_PATH} 
+      && export LIBRARY_PATH=${CUDA_HOME}/lib64/stubs:${LIBRARY_PATH}
+      && pip install git+https://github.com/KAIR-BAIR/nerfacc.git@v0.5.2
+      && pip install git+https://github.com/NVlabs/tiny-cuda-nn.git@212104156403bd87616c1a4f73a1c5f2c2e172a9#subdirectory=bindings/torch
+      && pip install git+https://github.com/NVlabs/nvdiffrast.git@c5caf7bdb8a2448acc491a9faa47753972edd380
+      && pip install git+https://github.com/ashawkey/envlight.git@ef492c03711c87287549a0283ee51199f45cbea4
+      '
+predict: "predict.py:Predictor"
