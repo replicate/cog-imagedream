@@ -27,9 +27,11 @@ To use ImageDream, simply enter a text description and corresponding image of 3D
 - **seed:** Seed for reproducibility, default value is None. Use default value for random seed. Set to an arbitrary value for deterministic generation.
 
 ## References
+```
 @article{wang2023imagedream,
   title={ImageDream: Image-Prompt Multi-view Diffusion for 3D Generation},
   author={Wang, Peng and Shi, Yichun},
   journal={arXiv preprint arXiv:2312.02201},
   year={2023}
 }
+```
